@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@atlaskit/button": "^16.5.3",
+    "@atlaskit/code": "^14.4.6",
     "@atlaskit/form": "^8.8.3",
     "@atlaskit/textfield": "^5.3.4",
     "@octokit/core": "^4.2.0",
