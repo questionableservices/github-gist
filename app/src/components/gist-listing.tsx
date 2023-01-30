@@ -4,7 +4,6 @@ import Button from "@atlaskit/button/standard-button";
 
 import TableTree, { Cell, Row, Rows } from "@atlaskit/table-tree";
 import Avatar, { AvatarItem } from "@atlaskit/avatar";
-import EmptyState from "@atlaskit/empty-state";
 import { getUserGists } from "../helpers/github-gist-helper";
 import moment from "moment";
 
@@ -56,10 +55,7 @@ export const GistListing = ({ username, globalUser }: Props) => {
   return (
     <>
       {username.length === 0 ? (
-        <EmptyState
-          header="No gists to be shown"
-          description="While there is no username provided there can be no gists to be listed"
-        />
+        ""
       ) : (
         <div className="centered-listing">
           <TableTree>

@@ -3,7 +3,9 @@ FROM node:18.13-alpine as builder
 WORKDIR ./app
 # Copy app files
 COPY .. .
-RUN npm install
+# Set legacy dependencies so that atlassian design kit works with latest version of react
+RUN npm config set legacy-peer-deps true
+RUN npm i
 # Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
 RUN npm ci
 # Build the app
