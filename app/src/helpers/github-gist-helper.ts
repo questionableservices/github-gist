@@ -17,8 +17,29 @@ async function getUserGists(
       page: page,
     }
   );
+  return Promise.all(
+    response.data.map(async (item: any) => {
+      return await getGist(item.id);
+    })
+  );
 
-  return response.data;
+  // Promise.all(
+  //  const results = response.data;
+  //
+  //  return results.map((item: any) => {
+  //    getGist(item.id).then((gistResponse: any) => {
+  //      // @ts-ignore
+  //      item.title = Object.values(gistResponse.files)[0].filename;
+  //      // @ts-ignore
+  //      item.programmingLanguage = Object.values(gistResponse.files)[0].language;
+  //      item.createdAt = gistResponse.created_at;
+  //      item.forks = gistResponse.forks;
+  //      item.files = gistResponse.files;
+  //    });
+  //
+  //    return item;
+  //  });
+  // )
 }
 
 async function getUserInfo(username: string) {

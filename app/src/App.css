@@ -76,3 +76,8 @@ p {
   border-radius: 50%;
   padding: 7px;
 }
+
+.horizontal-list li {
+  display: inline;
+  margin: 10px
+}
