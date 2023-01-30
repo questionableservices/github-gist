@@ -1,49 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-import { SyntaxHighlighter } from "./components/syntax-highlighter";
+import React, { useState } from "react";
+import "./App.css";
+import { UsernameSearch } from "./components/username-input";
+import { GistListing } from "./components/gist-listing";
+import { UserInfo } from "./components/user-info";
 
 function App() {
-  // return (
-  //   <div className="App">
-  //     <header className="App-header">
-  //       <img src={logo} className="App-logo" alt="logo" />
-  //       <p>
-  //         Edit <code>src/App.tsx</code> and save to reload.
-  //       </p>
-  //       <a
-  //         className="App-link"
-  //         href="https://reactjs.org"
-  //         target="_blank"
-  //         rel="noopener noreferrer"
-  //       >
-  //         Learn React
-  //       </a>
-  //     </header>
-  //   </div>
-  // );
-  const codeBlock = `// React Component
-class HelloMessage extends React.Component {
-  render() {
-    return (
-      <div>
-        Hello {this.props.name}
-      </div>
-    );
-  }
-}
+  const [username, setUsername] = useState("");
+  const [globalUser, setGlobalUser] = useState();
 
-ReactDOM.render(
-  <HelloMessage name="Taylor" />,
-  mountNode
-);`
-
-  return(
-      <>
-        <SyntaxHighlighter language="jsx" showLineNumbers={true} codeBlock={codeBlock}></SyntaxHighlighter>
-      </>
-  )
+  return (
+    <>
+      <UsernameSearch
+        username={username}
+        setUsername={setUsername}
+      ></UsernameSearch>
+      <UserInfo username={username} setGlobalUser={setGlobalUser}></UserInfo>
+      <GistListing username={username} globalUser={globalUser}></GistListing>
+      {/*<SyntaxHighlighter*/}
+      {/*  language="jsx"*/}
+      {/*  showLineNumbers={true}*/}
+      {/*  codeBlock={codeBlock}*/}
+      {/*></SyntaxHighlighter>*/}
+    </>
+  );
 }
 
 export default App;
