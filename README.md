@@ -3,7 +3,9 @@ Technical challenge for a SPA that joggles with Github Gists API
 
 # Project Setup
 
-To run the project without Node installed, run 
+Firstly create a .env file from the env.txt sent and add it to ./app folder.
+
+Next, to run the project without Node installed, run the following:
 
 ```javascript
 docker-compose up --build
