@@ -33,6 +33,13 @@ npm start
 Now the React APP can be accessed at [http://localhost:3000](http://localhost:3000)
 
 # What has been done?
+* Decided to go with the Typescript version of React so to learn "a better way of coding". There were moments when I 
+regretted this decision due to being forced on defining the variable types an creating interfaces
+* Chose Atlaskit component from [Atlasian Design Language](https://atlassian.design/) thinking it will speed up UI 
+and the rest of visual implementations and animations
+* Decided to go with a more modern Functional Component and Hooks way of working instead of Classes
+* Rendering lists using .map
+* Went for a kebab-case naming the components to avoid different OS problems. Got the information from [here](https://profy.dev/article/react-folder-structure#kebab-case-for-file-and-folder-names)
 
 # Optimizations
 ### Already done
@@ -42,6 +49,7 @@ Now the React APP can be accessed at [http://localhost:3000](http://localhost:30
 * Getting forks and file contents in the same call
 
 ### Next steps
+* using [absolute imports](https://profy.dev/article/react-folder-structure#absolute-imports) of components
 * better code fragmentation for cleaner developer experience
 * better research regarding UI library ( even if it looks really nice, Atlassian Design Language proved to be pretty restrictive - ex: for some reason, I couldn't manage to make the modal for the syntax appear without a full page re-render implying all the gist API calls to be made again; spent over 2 hours trying to fix this )
 * better async functionality ( spent over 3 hours trying to figure out a cleaner looking approach than what has been implemented )
