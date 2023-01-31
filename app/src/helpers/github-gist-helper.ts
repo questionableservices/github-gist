@@ -22,24 +22,6 @@ async function getUserGists(
       return await getGist(item.id);
     })
   );
-
-  // Promise.all(
-  //  const results = response.data;
-  //
-  //  return results.map((item: any) => {
-  //    getGist(item.id).then((gistResponse: any) => {
-  //      // @ts-ignore
-  //      item.title = Object.values(gistResponse.files)[0].filename;
-  //      // @ts-ignore
-  //      item.programmingLanguage = Object.values(gistResponse.files)[0].language;
-  //      item.createdAt = gistResponse.created_at;
-  //      item.forks = gistResponse.forks;
-  //      item.files = gistResponse.files;
-  //    });
-  //
-  //    return item;
-  //  });
-  // )
 }
 
 async function getUserInfo(username: string) {

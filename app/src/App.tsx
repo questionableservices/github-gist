@@ -6,7 +6,6 @@ import { UserInfo } from "./components/user-info";
 
 import {
   Content,
-  LeftSidebar,
   Main,
   PageLayout,
   TopNavigation,

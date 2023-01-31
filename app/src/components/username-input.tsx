@@ -24,7 +24,7 @@ export const UsernameSearch = ({ username, setUsername }: Props) => {
       <>
         <Search
           onClick={onChange}
-          placeholder="Search..."
+          placeholder="Enter Github username..."
           tooltip="Search"
           label="Search"
           value={value}

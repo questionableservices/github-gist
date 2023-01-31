@@ -4,10 +4,19 @@ import Button from "@atlaskit/button/standard-button";
 
 import TableTree, { Cell, Row, Rows } from "@atlaskit/table-tree";
 import Avatar, { AvatarItem } from "@atlaskit/avatar";
-import { getUserGists, getGist } from "../helpers/github-gist-helper";
+import { getUserGists } from "../helpers/github-gist-helper";
 import moment from "moment";
 import { SyntaxHighlighter } from "./syntax-highlighter";
 import Spinner from "@atlaskit/spinner";
+
+import Modal, {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+  ModalTransition,
+} from "@atlaskit/modal-dialog";
+import { SupportedLanguages } from "@atlaskit/code";
 
 type Props = {
   username: string;
@@ -26,6 +35,14 @@ interface GistItem {
 export const GistListing = ({ username, globalUser }: Props) => {
   const [listingItems, setListingItems] = useState([]);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [highlightedSyntax, setHighlightedSyntax] = useState<string>("");
+  const [programmingLanguage, setProgrammingLanguage] =
+    useState<SupportedLanguages>();
+  const [isOpen, setIsOpen] = useState(false);
+  const openModal = useCallback(() => {
+    setIsOpen(true);
+  }, []);
+  const closeModal = useCallback(() => setIsOpen(false), []);
 
   const updateListingItems = () => {
     getUserGists(username, 20, 1)
@@ -40,11 +57,24 @@ export const GistListing = ({ username, globalUser }: Props) => {
       });
   };
 
-  function renderFileButton(username: string, title: string, gistId: string) {
+  function renderFileButton(
+    username: string,
+    title: string,
+    codeBlock: string,
+    programmingLanguage: SupportedLanguages
+  ) {
     return (
       <>
         <span>{username} / </span>
-        <Button appearance="link" spacing="none">
+        <Button
+          appearance="link"
+          spacing="none"
+          onClick={() => {
+            setHighlightedSyntax(codeBlock);
+            setProgrammingLanguage(programmingLanguage);
+            openModal();
+          }}
+        >
           {title}
         </Button>
       </>
@@ -76,9 +106,8 @@ export const GistListing = ({ username, globalUser }: Props) => {
     }
 
     return () => {};
-  }, [username]);
+  }, [username, highlightedSyntax]);
 
-  console.log(listingItems);
   return (
     <>
       {username.length === 0 ? (
@@ -92,14 +121,7 @@ export const GistListing = ({ username, globalUser }: Props) => {
               <TableTree>
                 <Rows
                   items={listingItems}
-                  render={({
-                    id,
-                    programmingLanguage,
-                    forks,
-                    files,
-                    // @ts-ignore
-                    created_at,
-                  }: GistItem) => (
+                  render={({ id, forks, files, created_at }: GistItem) => (
                     <Row itemId={id} hasChildren={false}>
                       <Cell width="100vh">
                         <AvatarItem
@@ -107,7 +129,10 @@ export const GistListing = ({ username, globalUser }: Props) => {
                           primaryText={renderFileButton(
                             username,
                             Object.values(files)[0].filename,
-                            id
+                            Object.values(files)[0].content,
+                            Object.values(files)[0].language
+                              ? Object.values(files)[0].language
+                              : ""
                           )}
                           secondaryText={moment(created_at).fromNow()}
                         />
@@ -130,6 +155,28 @@ export const GistListing = ({ username, globalUser }: Props) => {
           </div>
         </>
       )}
+
+      <ModalTransition>
+        {isOpen && (
+          <Modal onClose={closeModal}>
+            <ModalHeader>
+              <ModalTitle>Code syntax</ModalTitle>
+            </ModalHeader>
+            <ModalBody>
+              <SyntaxHighlighter
+                language={programmingLanguage}
+                showLineNumbers={true}
+                codeBlock={highlightedSyntax}
+              />
+            </ModalBody>
+            <ModalFooter>
+              <Button appearance="primary" onClick={closeModal}>
+                Close
+              </Button>
+            </ModalFooter>
+          </Modal>
+        )}
+      </ModalTransition>
     </>
   );
 };
